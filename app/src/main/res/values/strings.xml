@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FireFighterApp</string>
+    <string name="human_following">Human Following</string>
+    <string name="self_driving">Self Driving</string>
+    <string name="obstacle_avoiding">Obstacle Avoiding</string>
+    <string name="stop">Stop</string>
+    <string name="start">Start</string>
 </resources>

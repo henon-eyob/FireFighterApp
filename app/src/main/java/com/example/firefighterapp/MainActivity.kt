@@ -9,6 +9,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
@@ -27,6 +28,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bluetoothAdapter: BluetoothManager
     private lateinit var bluetoothSocket: BluetoothSocket
     private lateinit var constraintLayout:ConstraintLayout
+    private lateinit var up:ImageButton
+    private lateinit var left:ImageButton
+    private lateinit var down:ImageButton
+    private lateinit var right:ImageButton
+    private var socket:BluetoothSocket? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -52,6 +58,62 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "bluetooth is turned off", Toast.LENGTH_SHORT).show()
             }
         }
+        up.setOnClickListener {
+            if (!socket!!.isConnected){
+                connectBT()
+            }else{
+                val command  = 8
+                try {
+                    outputStream.write(command)
+                }catch (e:IOException){
+                    e.printStackTrace()
+                    Log.d(TAG, "onCreate: ${e.message}")
+                }
+
+            }
+        }
+        down.setOnClickListener {
+            if (!socket!!.isConnected){
+                connectBT()
+            }else{
+                val command  = 2
+                try {
+                    outputStream.write(command)
+                }catch (e:IOException){
+                    e.printStackTrace()
+                    Log.d(TAG, "onCreate: ${e.message}")
+                }
+
+            }
+        }
+        left.setOnClickListener {
+            if (!socket!!.isConnected){
+                connectBT()
+            }else{
+                val command  = 4
+                try {
+                    outputStream.write(command)
+                }catch (e:IOException){
+                    e.printStackTrace()
+                    Log.d(TAG, "onCreate: ${e.message}")
+                }
+
+            }
+        }
+        right.setOnClickListener {
+            if (!socket!!.isConnected){
+                connectBT()
+            }else{
+                val command  = 6
+                try {
+                    outputStream.write(command)
+                }catch (e:IOException){
+                    e.printStackTrace()
+                    Log.d(TAG, "onCreate: ${e.message}")
+                }
+
+            }
+        }
     }
 
     private fun initView(){
@@ -60,6 +122,10 @@ class MainActivity : AppCompatActivity() {
         selfDrivingCardView = findViewById(R.id.selfDrivingCard)
         bluetoothCardView = findViewById(R.id.bluetoothCard)
         constraintLayout = findViewById(R.id.constraint)
+        up = findViewById(R.id.up)
+        down = findViewById(R.id.down)
+        left = findViewById(R.id.left)
+        right = findViewById(R.id.right)
     }
 
     private  var resultActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result->
@@ -86,7 +152,7 @@ class MainActivity : AppCompatActivity() {
 
         val bluetoothDevice = bluetoothAdapter.adapter.getRemoteDevice(DEVICE_ADDRESS)
         val uuid = bluetoothDevice.uuids[0].uuid
-        var socket:BluetoothSocket? = null
+
 
         try{
             socket = bluetoothDevice.createInsecureRfcommSocketToServiceRecord(uuid)
@@ -96,6 +162,8 @@ class MainActivity : AppCompatActivity() {
         bluetoothSocket=socket!!
         bluetoothSocket.connect()
         if(bluetoothSocket.isConnected){
+            val command = "s"
+//            outputStream.write(command.toByteArray())
             Toast.makeText(this@MainActivity, "connected successfully", Toast.LENGTH_SHORT).show()
         }
 

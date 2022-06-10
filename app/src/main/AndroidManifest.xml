@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FireFighterApp"
         tools:targetApi="31">
+        <service android:name=".ServiceClass"/>
         <activity
             android:name=".HumanFollowing"
             android:exported="false" />

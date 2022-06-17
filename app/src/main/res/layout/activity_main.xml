@@ -104,7 +104,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/self_driving"
+                        android:text="@string/operation_mode"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="16sp"/>
@@ -219,8 +219,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/right"
-            android:src="@drawable/ic_baseline_arrow_right_24"
-            />
+            android:src="@drawable/ic_baseline_arrow_right_24"/>
 
         <ImageButton
             android:layout_marginTop="25dp"

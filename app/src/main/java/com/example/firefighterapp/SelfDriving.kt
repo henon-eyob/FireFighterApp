@@ -3,9 +3,11 @@ package com.example.firefighterapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.Toast
+import java.io.IOException
 
 class SelfDriving : AppCompatActivity() {
     private lateinit var selfDrivingBack:ImageView
@@ -20,7 +22,24 @@ class SelfDriving : AppCompatActivity() {
         }
 
         selfDrivingStart.setOnClickListener {
-            Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show()
+            val commod = 9
+            try{
+                MainActivity.outputStream.write(commod)
+                Log.d(ObstacleAvoiding.TAG, "onCreate:Send Data ")
+            }catch (e: IOException){
+                e.printStackTrace()
+                Log.d(ObstacleAvoiding.TAG, "onCreate: ${e.message}")
+            }
+        }
+        selfDrivingStop.setOnClickListener {
+            val commod = 0
+            try{
+                MainActivity.outputStream.write(commod)
+                Log.d(ObstacleAvoiding.TAG, "onCreate:Send Data ")
+            }catch (e: IOException){
+                e.printStackTrace()
+                Log.d(ObstacleAvoiding.TAG, "onCreate: ${e.message}")
+            }
         }
     }
 
